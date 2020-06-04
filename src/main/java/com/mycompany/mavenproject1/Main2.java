@@ -3,8 +3,15 @@ package com.mycompany.mavenproject1;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import quizLogic.QuizC11CSVmanager;
+import quizLogic.QuizC11Entity;
 
 /**
  *
@@ -16,29 +23,20 @@ public class Main2 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try { 
-        // Create an object of file reader 
-        File file = new File("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
-        // class with CSV file as a parameter. 
-        FileReader filereader = new FileReader(file); 
-  
-        // create csvReader object and skip first Line 
-        CSVReader csvReader = new CSVReaderBuilder(filereader) 
-                                  .withSkipLines(1) 
-                                  .build(); 
-        List<String[]> allData = csvReader.readAll(); 
-  
-        // print Data 
-        for (String[] row : allData) { 
-            for (String cell : row) { 
-                System.out.print(cell + "\t"); 
-            } 
-            System.out.println(); 
-        } 
-    } 
-    catch (Exception e) { 
-        e.printStackTrace(); 
-    } 
+
+        QuizC11CSVmanager quizC11manager = new QuizC11CSVmanager();
+        ArrayList<QuizC11Entity> quizList = new ArrayList<>();
+
+        try {
+            quizList = (ArrayList<QuizC11Entity>) quizC11manager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
+            for (QuizC11Entity quiz : quizList) {
+                System.out.println(quiz.toString());
+            }
+            System.out.println("numeber of quiz: "+quizList.size());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
-    
+
 }

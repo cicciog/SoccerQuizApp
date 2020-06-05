@@ -33,6 +33,9 @@ public class QuizC11CSVmanager {
 
         //read all data from csv
         List<String[]> allData = csvReader.readAll();
+        //close file reader
+        csvReader.close(); 
+        
         //create an instance of quizList
         quizList = new ArrayList<>();
 
@@ -43,7 +46,7 @@ public class QuizC11CSVmanager {
             quizc11.setRule(row[0]);
             quizc11.setQuestion(row[1]);
             quizc11.setAnswer(row[2]);
-
+            
             //fill list
             quizList.add(quizc11);
         }

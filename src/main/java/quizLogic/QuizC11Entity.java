@@ -38,7 +38,7 @@ public class QuizC11Entity {
     }
 
     public String getUserAnswer() {
-        return answer;
+        return userAnswer;
     }
 
     public void setUserAnswer(String pUserAnswer) {

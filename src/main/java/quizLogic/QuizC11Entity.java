@@ -8,6 +8,7 @@ public class QuizC11Entity {
     private String rule;
     private String question;
     private String answer;
+    private String userAnswer; 
 
     public QuizC11Entity() {
     }
@@ -36,10 +37,19 @@ public class QuizC11Entity {
         this.answer = pAnswer;
     }
 
+    public String getUserAnswer() {
+        return answer;
+    }
+
+    public void setUserAnswer(String pUserAnswer) {
+        this.userAnswer = pUserAnswer;
+    }
+
     @Override
     public String toString() {
-        return "QuizC11Entity{" + "rule=" + rule + ", question=" + question + ", answer=" + answer + '}';
+        return "QuizC11Entity{" + "rule=" + rule + ", question=" + question + ", answer=" + answer + ", userAnswer=" + userAnswer + '}';
     }
+
     
     
     

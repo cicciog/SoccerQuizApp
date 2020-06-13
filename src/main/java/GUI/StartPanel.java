@@ -46,9 +46,9 @@ public class StartPanel extends JPanel {
 
         //set background color
         setBackground(Color.decode("#FFFFFF"));
-        panel1.setBackground(Color.decode("#FFFFFF"));
+        panel1.setBackground(Color.decode("#43a047"));
         panel2.setBackground(Color.decode("#FFFFFF"));
-        panel3.setBackground(Color.decode("#FFFFFF"));
+        panel3.setBackground(Color.decode("#bf360c"));
         panel4.setBackground(Color.decode("#FFFFFF"));
 
         //set size

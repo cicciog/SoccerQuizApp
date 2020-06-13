@@ -4,13 +4,13 @@ package quizLogic;
  *
  * @author francesco
  */
-public class QuizC11Entity {
+public class QuizEntity {
     private String rule;
     private String question;
     private String answer;
     private String userAnswer; 
 
-    public QuizC11Entity() {
+    public QuizEntity() {
     }
 
     public String getRule() {

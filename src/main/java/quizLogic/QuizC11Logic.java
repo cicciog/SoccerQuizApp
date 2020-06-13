@@ -6,45 +6,47 @@ import java.util.ArrayList;
  *
  * @author francesco
  */
-public class QuizC11Logic {
+public class QuizC11Logic implements AbstractQuizLogic{
 
-    private ArrayList<QuizC11Entity> QuizList;
+    private ArrayList<QuizEntity> QuizList;
     private int numberOfQuestion;
     private int currentQuestion = 0;
 
-    public QuizC11Logic(ArrayList<QuizC11Entity> pFullC11QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
+    public QuizC11Logic(ArrayList<QuizEntity> pFullC11QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
+        //check if the quiz list is null
         if (pFullC11QuizList == null) {
             throw new NullPointerException("Lista di quiz vuota");
         }
-
+        
+        //check if the quiz list is empty
         if (pFullC11QuizList.isEmpty()) {
             throw new IndexOutOfBoundsException("Lista dei quiz vuota");
         }
 
         this.numberOfQuestion = pNumberOfQuestion;
         QuizList = new ArrayList<>();
-
-        int slot = (pFullC11QuizList.size() / this.numberOfQuestion);
-        System.out.println("slot: "+slot);
         
+        //calculate slot for question range
+        int slot = (pFullC11QuizList.size() / this.numberOfQuestion);
+        
+        //generate quiz
         for (int i = 0; i < numberOfQuestion; i++) {
             int question = (int) (Math.random() * ((slot * (i+1)) - (slot * i) + 1)) + (slot * i);
-            System.out.println("question"+i+": "+question);
             QuizList.add(pFullC11QuizList.get(question));
         }
         
-
-        for (QuizC11Entity quiz : QuizList) {
-            System.out.println(quiz.toString());
-        }
     }
 
-    public QuizC11Entity getCurrentQuestion() {
+    @Override
+    public QuizEntity getCurrentQuestion() {
+        //show current question of the quiz session
         return QuizList.get(currentQuestion);
     }
 
-    public QuizC11Entity getPreviousQuestion() throws IllegalArgumentException{
-        if(currentQuestion < numberOfQuestion && currentQuestion > 0){
+    @Override
+    public QuizEntity getPreviousQuestion() throws IllegalArgumentException{
+        //check if the previous question is in the correct range
+        if(currentQuestion >= 0){
             currentQuestion = currentQuestion - 1;
         }else{
             throw new IllegalArgumentException("Non è possibile recuperare il quiz precedente");
@@ -53,30 +55,33 @@ public class QuizC11Logic {
         return QuizList.get(currentQuestion);
     }
 
-    public QuizC11Entity getNextQuestion() {
-         if(currentQuestion < numberOfQuestion && currentQuestion >= 0){
+    @Override
+    public QuizEntity getNextQuestion() {
+        //check if the previous question is in the correct range
+         if(currentQuestion < numberOfQuestion){
             currentQuestion = currentQuestion + 1;
+            return QuizList.get(currentQuestion);
         }else{
-            throw new IllegalArgumentException("Non è possibile recuperare il quiz precedente");
+            throw new IllegalArgumentException("Non è possibile recuperare il quiz successivo");
         }
-        
-        return QuizList.get(currentQuestion);
     }
 
+    @Override
     public void answerTheQuestion(int pQuestion, String pAnswer) {
-        System.err.println("Answer the question n."+pQuestion);
-        System.out.println(QuizList.get(pQuestion));
+        //anser a question
         QuizList.get(pQuestion).setUserAnswer(pAnswer);
-        System.out.println(QuizList.get(pQuestion));
     }
 
-    public void getResult() {
+    @Override
+    public ResultEntity getResult() {
         int wrong = 0;
         int correct = 0;
         int notAnswerd = 0;
+        ResultEntity result;
         
+        //compute the correct, wrong and notAnswered question
         for(int i = 0; i < numberOfQuestion; i++){
-            if(QuizList.get(i).getUserAnswer() == null){
+            if(QuizList.get(i).getUserAnswer() == null||QuizList.get(i).getUserAnswer().length() == 0){
                 notAnswerd = notAnswerd + 1;
             }else if(QuizList.get(i).getUserAnswer().equals(QuizList.get(i).getAnswer())){
                 correct = correct + 1;
@@ -85,10 +90,16 @@ public class QuizC11Logic {
             }
         }
         
+        //calculate the score of the quiz
         int score = correct*3-wrong*2+notAnswerd;
-        System.out.println(score);
         
-        System.out.println("Quiz score: "+score+" correct: "+correct+" wrong: "+wrong+" not answerd: "+notAnswerd);
+        result = new ResultEntity();
+        result.setCorrect(correct);
+        result.setWrong(wrong);
+        result.setNotAnswered(notAnswerd);
+        result.setScore(score);
+        
+        return result;
 
     }
 

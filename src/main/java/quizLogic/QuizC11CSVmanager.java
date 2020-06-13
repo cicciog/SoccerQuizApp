@@ -17,12 +17,12 @@ import java.util.List;
 public class QuizC11CSVmanager {
     
 
-    public Collection<QuizC11Entity> readAllC11Quizzes(String pSource) throws FileNotFoundException, IOException {
+    public Collection<QuizEntity> readAllC11Quizzes(String pSource) throws FileNotFoundException, IOException {
         // Create an object of file reader 
         File file = new File(pSource);
         // class with CSV file as a parameter. 
         FileReader filereader;
-        ArrayList<QuizC11Entity> quizList;
+        ArrayList<QuizEntity> quizList;
 
         filereader = new FileReader(file);
 
@@ -42,7 +42,7 @@ public class QuizC11CSVmanager {
         // print Data 
         for (String[] row : allData) {
 
-            QuizC11Entity quizc11 = new QuizC11Entity();
+            QuizEntity quizc11 = new QuizEntity();
             quizc11.setRule(row[0]);
             quizc11.setQuestion(row[1]);
             quizc11.setAnswer(row[2]);

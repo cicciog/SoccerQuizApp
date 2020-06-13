@@ -1,17 +1,10 @@
 package com.mycompany.mavenproject1;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVReaderBuilder;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Scanner;
 import quizLogic.QuizC11CSVmanager;
-import quizLogic.QuizC11Entity;
+import quizLogic.QuizEntity;
 import quizLogic.QuizC11Logic;
 
 /**
@@ -26,27 +19,42 @@ public class Main2 {
     public static void main(String[] args) {
 
         QuizC11CSVmanager quizC11manager = new QuizC11CSVmanager();
-        ArrayList<QuizC11Entity> quizList = new ArrayList<>();
+        ArrayList<QuizEntity> quizList = new ArrayList<>();
+        QuizC11Logic quizC11Logic = null;
+        QuizEntity currentQuiz = null;
 
         try {
-            quizList = (ArrayList<QuizC11Entity>) quizC11manager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
-            QuizC11Logic quizC11Logic = new QuizC11Logic(quizList, 10);
-
-            quizC11Logic.answerTheQuestion(0, "VERO");
-            quizC11Logic.answerTheQuestion(1, "FALSO");
-            quizC11Logic.answerTheQuestion(2, "VERO");
-            quizC11Logic.answerTheQuestion(3, "FALSO");
-            quizC11Logic.answerTheQuestion(5, "VERO");
-            quizC11Logic.answerTheQuestion(6, "FALSO");
-            quizC11Logic.answerTheQuestion(8, "VERO");
-
-            quizC11Logic.getResult();
-
-        } catch (NullPointerException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
+            quizList = (ArrayList<QuizEntity>) quizC11manager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
+            quizC11Logic = new QuizC11Logic(quizList, 10);
+        } catch (NullPointerException | IOException ex) {
             System.out.println(ex.getMessage());
         }
+        
+        System.out.println("Benvenuto nell'applicazione per arbitri di calcio!");
+        for (int i = 0; i < 10; i++) {
+            // Declare the object and initialize with 
+            // predefined standard input object 
+            
+            currentQuiz = quizC11Logic.getCurrentQuestion();
+            
+            
+            System.out.println(currentQuiz.getQuestion());
+            Scanner sc = new Scanner(System.in);
+
+            // String input 
+            String answer = sc.nextLine().toUpperCase();
+            quizC11Logic.answerTheQuestion(i, answer);
+            //System.out.println(quizC11Logic.getCurrentQuestion().getAnswer());
+            if(i+1 < 10){
+                quizC11Logic.getNextQuestion();
+            }
+            
+        }
+        
+        System.out.println("Score: "+quizC11Logic.getResult().getScore());
+        System.out.println("Risposte corrette: "+quizC11Logic.getResult().getCorrect());
+        System.out.println("Risposte errate: "+quizC11Logic.getResult().getWrong());
+        System.out.println("Risposte non inserite: "+quizC11Logic.getResult().getNotAnswered());
 
     }
 

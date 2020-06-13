@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import quizLogic.QuizC11Logic;
+import quizLogic.QuizC5Logic;
 import quizLogic.QuizCSVmanager;
 import quizLogic.QuizEntity;
 
@@ -19,7 +20,7 @@ public class ApplicationFrame extends JFrame {
 
     private Dimension screenSize;
     private StartPanel startPanel;
-    private QuizPanel quizPanel;
+    private QuizC5Panel quizPanel;
 
     public ApplicationFrame(String pTitle) throws IOException {
         // invoke the JFrame constructor
@@ -35,16 +36,16 @@ public class ApplicationFrame extends JFrame {
         
         QuizCSVmanager quizC11manager = new QuizCSVmanager();
         ArrayList<QuizEntity> quizList = new ArrayList<>();
-        QuizC11Logic quizC11Logic = null;
+        QuizC5Logic quizC5Logic = null;
         
         try {
             quizList = (ArrayList<QuizEntity>) quizC11manager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
-            quizC11Logic = new QuizC11Logic(quizList, 10);
+            quizC5Logic = new QuizC5Logic(quizList, 10);
         } catch (NullPointerException | IOException ex) {
             System.out.println(ex.getMessage());
         }
         
-        quizPanel = new QuizPanel(screenSize,quizC11Logic);
+        quizPanel = new QuizC5Panel(screenSize,quizC5Logic);
         //add(startPanel);
         add(quizPanel);
 

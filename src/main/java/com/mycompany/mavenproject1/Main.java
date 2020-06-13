@@ -2,8 +2,6 @@ package com.mycompany.mavenproject1;
 
 import GUI.ApplicationFrame;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**

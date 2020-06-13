@@ -1,19 +1,14 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import quizLogic.QuizC11Logic;
 import quizLogic.QuizEntity;
 
@@ -24,6 +19,7 @@ import quizLogic.QuizEntity;
 public class QuizPanel extends JPanel {
 
     private JTextArea questionLabel;
+    private JTextArea questionProgress;
     private JButton trueButton;
     private JButton wrongButton;
     private QuizEntity currentQuiz = null;
@@ -40,11 +36,13 @@ public class QuizPanel extends JPanel {
 
         createQuestionLabel(pDimension);
         createTrueButton(pDimension, pQuizC11Logic);
-        createWrongButton(pDimension,pQuizC11Logic);
+        createWrongButton(pDimension, pQuizC11Logic);
+        createQuestionProgessLabel(pDimension);
 
         this.add(questionLabel);
         this.add(trueButton);
         this.add(wrongButton);
+        this.add(questionProgress);
 
     }
 
@@ -76,14 +74,15 @@ public class QuizPanel extends JPanel {
                 if (quizCounter + 1 < 10) {
                     questionLabel.setText(pQuizC11Logic.getNextQuestion().getQuestion());
                     quizCounter++;
+                    questionProgress.setText("Domanda n. "+(quizCounter+1));
                 } else {
                     System.out.println(pQuizC11Logic.getResult());
                 }
             }
         });
     }
-    
-    private void createWrongButton(Dimension pDimension,QuizC11Logic pQuizC11Logic){
+
+    private void createWrongButton(Dimension pDimension, QuizC11Logic pQuizC11Logic) {
         wrongButton = new JButton();
         wrongButton.setBackground(Color.decode("#bf360c"));
         wrongButton.setForeground(Color.decode("#FFFFFF"));
@@ -98,11 +97,23 @@ public class QuizPanel extends JPanel {
                 if (quizCounter + 1 < 10) {
                     questionLabel.setText(pQuizC11Logic.getNextQuestion().getQuestion());
                     quizCounter++;
+                    questionProgress.setText("Domanda n. "+(quizCounter+1));
                 } else {
                     System.out.println(pQuizC11Logic.getResult());
                 }
             }
         });
+    }
+
+    private void createQuestionProgessLabel(Dimension pDimension) {
+        questionProgress = new JTextArea();
+        questionProgress.setBackground(Color.decode("#FFFFFF"));
+        questionProgress.setForeground(Color.decode("#000000"));
+        questionProgress.setSize((int) (pDimension.width / 24 * 2.5), pDimension.height / 12);
+        questionProgress.setLocation(pDimension.width / 24 * 3,20);
+        questionProgress.setText("Domanda n. "+(quizCounter+1));
+        questionProgress.setFont(new Font("Arial", Font.BOLD, 14));
+        
     }
 
 }

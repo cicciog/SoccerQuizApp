@@ -3,7 +3,7 @@ package com.mycompany.mavenproject1;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import quizLogic.QuizC11CSVmanager;
+import quizLogic.QuizCSVmanager;
 import quizLogic.QuizEntity;
 import quizLogic.QuizC11Logic;
 
@@ -18,7 +18,7 @@ public class Main2 {
      */
     public static void main(String[] args) {
 
-        QuizC11CSVmanager quizC11manager = new QuizC11CSVmanager();
+        QuizCSVmanager quizC11manager = new QuizCSVmanager();
         ArrayList<QuizEntity> quizList = new ArrayList<>();
         QuizC11Logic quizC11Logic = null;
         QuizEntity currentQuiz = null;

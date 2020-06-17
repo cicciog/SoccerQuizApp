@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import quizLogic.QuizC11Logic;
 import quizLogic.QuizC5Logic;
 import quizLogic.QuizCSVmanager;
@@ -21,6 +22,7 @@ public class ApplicationFrame extends JFrame {
     private Dimension screenSize;
     private StartPanel startPanel;
     private QuizC5Panel quizPanel;
+    private Pie piePanel;
 
     public ApplicationFrame(String pTitle) throws IOException {
         // invoke the JFrame constructor
@@ -47,10 +49,13 @@ public class ApplicationFrame extends JFrame {
         
         quizPanel = new QuizC5Panel(screenSize,quizC5Logic);
         //add(startPanel);
-        add(quizPanel);
+        //add(quizPanel);
+        Dimension dimension = new Dimension(screenSize.width / 3, screenSize.height / 2);
+        Pie pie = new Pie(dimension);
+        add(pie);
 
         setVisible(true);
-        setResizable(false);
+        setResizable(true);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

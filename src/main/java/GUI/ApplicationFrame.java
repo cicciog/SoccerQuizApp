@@ -55,7 +55,7 @@ public class ApplicationFrame extends JFrame {
         add(pie);
 
         setVisible(true);
-        setResizable(true);
+        setResizable(false);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

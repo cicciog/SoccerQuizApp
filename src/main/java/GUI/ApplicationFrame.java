@@ -1,41 +1,80 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import quizLogic.QuizC11Logic;
-import quizLogic.QuizC5Logic;
-import quizLogic.QuizCSVmanager;
-import quizLogic.QuizEntity;
 
 /**
  *
  * @author francesco
  */
 public class ApplicationFrame extends JFrame {
-    // java - get screen size using the Toolkit class
 
-    private Dimension screenSize;
+    //set screen size 
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private final Dimension FRAME_SIZE = new Dimension(screenSize.width / 3,screenSize.height / 2);
+
+    //panel declaration
     private StartPanel startPanel;
-    private QuizC5Panel quizPanel;
-    private Pie piePanel;
+    private QuizC11Panel quizC11panel;
+    private QuizC5Panel quizC5Panel;
+    private PiePanel piePanel;
 
-    public ApplicationFrame(String pTitle) throws IOException {
-        // invoke the JFrame constructor
-        super(pTitle);
-
-        //frame size
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width / 3, screenSize.height / 2);
-
-        //add start panel
-        startPanel = new StartPanel(screenSize);
+    public ApplicationFrame(String pTitle){
         
+        this.setTitle(pTitle);
+        this.setSize(screenSize.width / 3, screenSize.height / 2);
+        this.setResizable(false);
+        this.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(FRAME_SIZE);
         
+        piePanel = new PiePanel();
+        initPanel(piePanel,false); 
+        
+        startPanel = new StartPanel();
+        initPanel(startPanel,true);
+        
+        startPanel.startQuizBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (startPanel.chooseType.getSelectedItem().equals("scegli quiz")) {
+                    // display the jdialog when type of quiz didn't selected
+                    JOptionPane.showMessageDialog(null, "Attenzione! Non hai scelto il tipo di quiz che desideri svolgere");
+                } else if (startPanel.chooseType.getSelectedItem().equals("Calcio a 11")) {
+                    JOptionPane.showMessageDialog(null, "Desideri fare i quiz di calcio a 11");
+                    swapPanel(startPanel,piePanel);
+                    startPanel.invalidate();
+                    startPanel.removeAll();
+                    piePanel.validate();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Desideri fare i quiz di calcio a 5");
+                    swapPanel(startPanel,piePanel);
+                    startPanel.invalidate();
+                    startPanel.removeAll();
+                    piePanel.validate();
+                }
+            }
+        });
+
+    }
+
+    private void initPanel(JPanel pPanel, boolean pValue) {
+        pPanel.setSize(FRAME_SIZE);
+        pPanel.setVisible(pValue);
+        this.add(pPanel);
+    }
+    
+     private void swapPanel(JPanel pFrom, JPanel pTo) {
+        pTo.setVisible(true);
+        pFrom.setVisible(false);
+    }
+
+    /*   public void createquiz(){
         QuizCSVmanager quizC11manager = new QuizCSVmanager();
         ArrayList<QuizEntity> quizList = new ArrayList<>();
         QuizC5Logic quizC5Logic = null;
@@ -47,19 +86,6 @@ public class ApplicationFrame extends JFrame {
             System.out.println(ex.getMessage());
         }
         
-        quizPanel = new QuizC5Panel(screenSize,quizC5Logic);
-        //add(startPanel);
-        //add(quizPanel);
-        Dimension dimension = new Dimension(screenSize.width / 3, screenSize.height / 2);
-        Pie pie = new Pie(dimension);
-        add(pie);
-
-        setVisible(true);
-        setResizable(false);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-// add the label to the JFrame
-    }
-
+        quizC5Panel = new QuizC5Panel(screenSize,quizC5Logic);
+    }*/
 }

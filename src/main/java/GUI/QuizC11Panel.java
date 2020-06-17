@@ -31,6 +31,7 @@ public class QuizC11Panel extends JPanel {
 
         setSize(pDimension.width / 3, pDimension.height / 2);
         setBackground(Color.decode("#FFFFFF"));
+        setVisible(true);
         setLayout(null);
 
         createQuestionLabel(pDimension);
@@ -44,6 +45,7 @@ public class QuizC11Panel extends JPanel {
         this.add(questionProgress);
 
     }
+    
 
     private void createQuestionLabel(Dimension pDimension) {
         questionLabel = new JTextArea();

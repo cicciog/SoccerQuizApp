@@ -27,10 +27,12 @@ public class QuizC5Panel extends JPanel {
         super();
 
         currentQuiz = pQuizC5Logic.getCurrentQuestion();
-
+        System.out.println(currentQuiz.getQuestion());
+        
         setSize(pDimension.width / 3, pDimension.height / 2);
         setBackground(Color.decode("#FFFFFF"));
         setLayout(null);
+        setVisible(false);
 
         createQuestionLabel(pDimension);
         createTrueButton(pDimension, pQuizC5Logic);

@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import quizLogic.QuizC5Logic;
+import quizLogic.QuizCSVmanager;
 import quizLogic.QuizEntity;
 
 /**
@@ -22,28 +26,37 @@ public class QuizC5Panel extends JPanel {
     private JButton wrongButton;
     private QuizEntity currentQuiz = null;
     private int quizCounter = 0;
+    private QuizC5Logic quizC5Logic;
+    private ArrayList<QuizEntity> fullC5QuizList;
+    private QuizCSVmanager quizCSVmanager;
 
-    public QuizC5Panel(Dimension pDimension, QuizC5Logic pQuizC5Logic) {
-        super();
-
-        currentQuiz = pQuizC5Logic.getCurrentQuestion();
-        System.out.println(currentQuiz.getQuestion());
+    public QuizC5Panel() {
         
-        setSize(pDimension.width / 3, pDimension.height / 2);
         setBackground(Color.decode("#FFFFFF"));
         setLayout(null);
-        setVisible(false);
 
+        quizCSVmanager = new QuizCSVmanager();
+        try {
+            fullC5QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC5Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c5.csv");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        quizC5Logic = new QuizC5Logic(fullC5QuizList, 10);
+        System.out.println(quizC5Logic.getCurrentQuestion().getQuestion());
+        this.currentQuiz = quizC5Logic.getCurrentQuestion();
+    }
+
+    public void initQuizPanel(Dimension pDimension) {
         createQuestionLabel(pDimension);
-        createTrueButton(pDimension, pQuizC5Logic);
-        createWrongButton(pDimension, pQuizC5Logic);
+        createTrueButton(pDimension);
+        createWrongButton(pDimension);
         createQuestionProgessLabel(pDimension);
 
         this.add(questionLabel);
         this.add(trueButton);
         this.add(wrongButton);
         this.add(questionProgress);
-
     }
 
     private void createQuestionLabel(Dimension pDimension) {
@@ -59,7 +72,7 @@ public class QuizC5Panel extends JPanel {
         questionLabel.setText(currentQuiz.getQuestion());
     }
 
-    private void createTrueButton(Dimension pDimension, QuizC5Logic pQuizC5Logic) {
+    private void createTrueButton(Dimension pDimension) {
         trueButton = new JButton();
         trueButton.setBackground(Color.decode("#43a047"));
         trueButton.setForeground(Color.decode("#FFFFFF"));
@@ -67,19 +80,19 @@ public class QuizC5Panel extends JPanel {
         trueButton.setLocation(pDimension.width / 24, pDimension.height / 12 * 4);
         trueButton.setLabel("Vero");
         trueButton.addActionListener((ActionEvent ae) -> {
-            pQuizC5Logic.answerTheQuestion(quizCounter, "VERO");
-            
+            quizC5Logic.answerTheQuestion(quizCounter, "VERO");
+
             if (quizCounter + 1 < 10) {
-                questionLabel.setText(pQuizC5Logic.getNextQuestion().getQuestion());
+                questionLabel.setText(quizC5Logic.getNextQuestion().getQuestion());
                 quizCounter++;
-                questionProgress.setText("Domanda n. "+(quizCounter+1));
+                questionProgress.setText("Domanda n. " + (quizCounter + 1));
             } else {
-                System.out.println(pQuizC5Logic.getResult());
+                System.out.println(quizC5Logic.getResult());
             }
         });
     }
 
-    private void createWrongButton(Dimension pDimension, QuizC5Logic pQuizC5Logic) {
+    private void createWrongButton(Dimension pDimension) {
         wrongButton = new JButton();
         wrongButton.setBackground(Color.decode("#bf360c"));
         wrongButton.setForeground(Color.decode("#FFFFFF"));
@@ -87,14 +100,14 @@ public class QuizC5Panel extends JPanel {
         wrongButton.setLocation(pDimension.width / 24 * 5, pDimension.height / 12 * 4);
         wrongButton.setLabel("Falso");
         wrongButton.addActionListener((ActionEvent ae) -> {
-            pQuizC5Logic.answerTheQuestion(quizCounter, "FALSO");
-            
+            quizC5Logic.answerTheQuestion(quizCounter, "FALSO");
+
             if (quizCounter + 1 < 10) {
-                questionLabel.setText(pQuizC5Logic.getNextQuestion().getQuestion());
+                questionLabel.setText(quizC5Logic.getNextQuestion().getQuestion());
                 quizCounter++;
-                questionProgress.setText("Domanda n. "+(quizCounter+1));
+                questionProgress.setText("Domanda n. " + (quizCounter + 1));
             } else {
-                System.out.println(pQuizC5Logic.getResult());
+                System.out.println(quizC5Logic.getResult());
             }
         });
     }
@@ -104,10 +117,10 @@ public class QuizC5Panel extends JPanel {
         questionProgress.setBackground(Color.decode("#FFFFFF"));
         questionProgress.setForeground(Color.decode("#000000"));
         questionProgress.setSize((int) (pDimension.width / 24 * 2.5), pDimension.height / 12);
-        questionProgress.setLocation(pDimension.width / 24 * 3,20);
-        questionProgress.setText("Domanda n. "+(quizCounter+1));
+        questionProgress.setLocation(pDimension.width / 24 * 3, 20);
+        questionProgress.setText("Domanda n. " + (quizCounter + 1));
         questionProgress.setFont(new Font("Arial", Font.BOLD, 14));
-        
+
     }
 
 }

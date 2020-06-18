@@ -13,14 +13,14 @@ public class QuizC5Logic implements AbstractQuizLogic {
     private int currentQuestion = 0;
     
     
-    public QuizC5Logic(ArrayList<QuizEntity> pFullC11QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
+    public QuizC5Logic(ArrayList<QuizEntity> pFullC5QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
         //check if the quiz list is null
-        if (pFullC11QuizList == null) {
+        if (pFullC5QuizList == null) {
             throw new NullPointerException("Lista di quiz vuota");
         }
         
         //check if the quiz list is empty
-        if (pFullC11QuizList.isEmpty()) {
+        if (pFullC5QuizList.isEmpty()) {
             throw new IndexOutOfBoundsException("Lista dei quiz vuota");
         }
 
@@ -28,12 +28,12 @@ public class QuizC5Logic implements AbstractQuizLogic {
         QuizList = new ArrayList<>();
         
         //calculate slot for question range
-        int slot = (pFullC11QuizList.size() / this.numberOfQuestion);
+        int slot = (pFullC5QuizList.size() / this.numberOfQuestion);
         
         //generate quiz
         for (int i = 0; i < numberOfQuestion; i++) {
             int question = (int) (Math.random() * ((slot * (i+1)) - (slot * i) + 1)) + (slot * i);
-            QuizList.add(pFullC11QuizList.get(question));
+            QuizList.add(pFullC5QuizList.get(question));
         }
         
     }

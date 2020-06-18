@@ -19,28 +19,27 @@ import quizLogic.QuizEntity;
  */
 public class QuizC11Panel extends JPanel {
 
-    private JTextArea questionLabel;
-    private JTextArea questionProgress;
-    private JButton trueButton;
-    private JButton wrongButton;
+    JTextArea questionLabel;
+    JTextArea questionProgress;
+    public JButton trueButton;
+    public JButton wrongButton;
     private QuizEntity currentQuiz = null;
-    private int quizCounter = 0;
-    private QuizC11Logic quizC11Logic;
+    int quizCounter = 0;
+    QuizC11Logic quizC11Logic;
     private ArrayList<QuizEntity> fullC11QuizList;
     private QuizCSVmanager quizCSVmanager;
 
     public QuizC11Panel() {
         setBackground(Color.decode("#FFFFFF"));
-        setVisible(true);
         setLayout(null);
-        
+
         quizCSVmanager = new QuizCSVmanager();
         try {
             fullC11QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         quizC11Logic = new QuizC11Logic(fullC11QuizList, 10);
         System.out.println(quizC11Logic.getCurrentQuestion().getQuestion());
         this.currentQuiz = quizC11Logic.getCurrentQuestion();
@@ -78,7 +77,7 @@ public class QuizC11Panel extends JPanel {
         trueButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         trueButton.setLocation(pDimension.width / 24, pDimension.height / 12 * 4);
         trueButton.setLabel("Vero");
-        trueButton.addActionListener((ActionEvent ae) -> {
+        /*trueButton.addActionListener((ActionEvent ae) -> {
             quizC11Logic.answerTheQuestion(quizCounter, "VERO");
 
             if (quizCounter + 1 < 10) {
@@ -86,9 +85,13 @@ public class QuizC11Panel extends JPanel {
                 quizCounter++;
                 questionProgress.setText("Domanda n. " + (quizCounter + 1));
             } else {
+                trueButton.setEnabled(false);
+                wrongButton.setEnabled(false);
+                setVisible(false);
+                
                 System.out.println(quizC11Logic.getResult());
             }
-        });
+        });*/
     }
 
     private void createWrongButton(Dimension pDimension) {
@@ -98,7 +101,7 @@ public class QuizC11Panel extends JPanel {
         wrongButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         wrongButton.setLocation(pDimension.width / 24 * 5, pDimension.height / 12 * 4);
         wrongButton.setLabel("Falso");
-        wrongButton.addActionListener((ActionEvent ae) -> {
+        /*wrongButton.addActionListener((ActionEvent ae) -> {
             quizC11Logic.answerTheQuestion(quizCounter, "FALSO");
 
             if (quizCounter + 1 < 10) {
@@ -106,9 +109,13 @@ public class QuizC11Panel extends JPanel {
                 quizCounter++;
                 questionProgress.setText("Domanda n. " + (quizCounter + 1));
             } else {
+                trueButton.setEnabled(false);
+                wrongButton.setEnabled(false);
+                setVisible(false);
+                
                 System.out.println(quizC11Logic.getResult());
             }
-        });
+        }); */
     }
 
     private void createQuestionProgessLabel(Dimension pDimension) {

@@ -3,7 +3,6 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,10 +18,10 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class PiePanel extends JPanel {
 
-    private int score;
-    private int correctAnswer;
-    private int wrongAnswer;
-    private int notAnsweredQuestion;
+    private int score = 0;
+    private int correctAnswer = 0;
+    private int wrongAnswer = 0;
+    private int notAnsweredQuestion = 0;
     private JPanel chartPanel;
     private JPanel resultPanel;
     private JPanel buttonsPanel;
@@ -33,15 +32,12 @@ public class PiePanel extends JPanel {
 
 
     public PiePanel() {
-        this.score = 20;
-        this.correctAnswer = 10;
-        this.wrongAnswer = 5;
-        this.notAnsweredQuestion = 3;
-
         //set background color white
         this.setBackground(Color.WHITE);
-
-        //create chart panel
+    }
+    
+    public void drawChart(){
+         //create chart panel
         this.chartPanel = createPieDiagram(this.getSize(),correctAnswer,wrongAnswer,notAnsweredQuestion);
 
         //create result panel
@@ -125,4 +121,21 @@ public class PiePanel extends JPanel {
         return btnsPanel;
     }
 
+    public void setScore(int pScore) {
+        this.score = pScore;
+    }
+
+    public void setCorrectAnswer(int pCorrectAnswer) {
+        this.correctAnswer = pCorrectAnswer;
+    }
+
+    public void setWrongAnswer(int pWrongAnswer) {
+        this.wrongAnswer = pWrongAnswer;
+    }
+
+    public void setNotAnsweredQuestion(int pNotAnsweredQuestion) {
+        this.notAnsweredQuestion = pNotAnsweredQuestion;
+    }
+
+    
 }

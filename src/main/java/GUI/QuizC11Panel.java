@@ -77,21 +77,6 @@ public class QuizC11Panel extends JPanel {
         trueButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         trueButton.setLocation(pDimension.width / 24, pDimension.height / 12 * 4);
         trueButton.setLabel("Vero");
-        /*trueButton.addActionListener((ActionEvent ae) -> {
-            quizC11Logic.answerTheQuestion(quizCounter, "VERO");
-
-            if (quizCounter + 1 < 10) {
-                questionLabel.setText(quizC11Logic.getNextQuestion().getQuestion());
-                quizCounter++;
-                questionProgress.setText("Domanda n. " + (quizCounter + 1));
-            } else {
-                trueButton.setEnabled(false);
-                wrongButton.setEnabled(false);
-                setVisible(false);
-                
-                System.out.println(quizC11Logic.getResult());
-            }
-        });*/
     }
 
     private void createWrongButton(Dimension pDimension) {
@@ -101,21 +86,6 @@ public class QuizC11Panel extends JPanel {
         wrongButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         wrongButton.setLocation(pDimension.width / 24 * 5, pDimension.height / 12 * 4);
         wrongButton.setLabel("Falso");
-        /*wrongButton.addActionListener((ActionEvent ae) -> {
-            quizC11Logic.answerTheQuestion(quizCounter, "FALSO");
-
-            if (quizCounter + 1 < 10) {
-                questionLabel.setText(quizC11Logic.getNextQuestion().getQuestion());
-                quizCounter++;
-                questionProgress.setText("Domanda n. " + (quizCounter + 1));
-            } else {
-                trueButton.setEnabled(false);
-                wrongButton.setEnabled(false);
-                setVisible(false);
-                
-                System.out.println(quizC11Logic.getResult());
-            }
-        }); */
     }
 
     private void createQuestionProgessLabel(Dimension pDimension) {

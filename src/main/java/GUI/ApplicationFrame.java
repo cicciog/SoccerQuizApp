@@ -100,7 +100,39 @@ public class ApplicationFrame extends JFrame {
                 
                 System.out.println(quizC11panel.quizC11Logic.getResult());
             }
-        });        
+        }); 
+        
+        quizC5panel.trueButton.addActionListener((ActionEvent e) -> {
+            quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "VERO");
+            
+            if (quizC5panel.quizCounter + 1 < 10) {
+                quizC5panel.questionLabel.setText(quizC5panel.quizC5Logic.getNextQuestion().getQuestion());
+                quizC5panel.quizCounter++;
+                quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));
+            } else {
+                quizC5panel.trueButton.setEnabled(false);
+                quizC5panel.wrongButton.setEnabled(false);
+                swapPanel(quizC5panel, piePanel);
+                
+                System.out.println(quizC5panel.quizC5Logic.getResult());
+            }
+        });
+        
+        quizC5panel.wrongButton.addActionListener((ActionEvent e) -> {
+            quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "VERO");
+            
+            if (quizC5panel.quizCounter + 1 < 10) {
+                quizC5panel.questionLabel.setText(quizC5panel.quizC5Logic.getNextQuestion().getQuestion());
+                quizC5panel.quizCounter++;
+                quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));
+            } else {
+                quizC5panel.trueButton.setEnabled(false);
+                quizC5panel.wrongButton.setEnabled(false);
+                swapPanel(quizC5panel, piePanel);
+                
+                System.out.println(quizC5panel.quizC5Logic.getResult());
+            }
+        });
     }
     
     private void initPanel(JPanel pPanel, boolean pValue) {

@@ -20,13 +20,13 @@ import quizLogic.QuizEntity;
  */
 public class QuizC5Panel extends JPanel {
 
-    private JTextArea questionLabel;
-    private JTextArea questionProgress;
-    private JButton trueButton;
-    private JButton wrongButton;
+    JTextArea questionLabel;
+    JTextArea questionProgress;
+    JButton trueButton;
+    JButton wrongButton;
     private QuizEntity currentQuiz = null;
-    private int quizCounter = 0;
-    private QuizC5Logic quizC5Logic;
+    int quizCounter = 0;
+    QuizC5Logic quizC5Logic;
     private ArrayList<QuizEntity> fullC5QuizList;
     private QuizCSVmanager quizCSVmanager;
 
@@ -79,7 +79,7 @@ public class QuizC5Panel extends JPanel {
         trueButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         trueButton.setLocation(pDimension.width / 24, pDimension.height / 12 * 4);
         trueButton.setLabel("Vero");
-        trueButton.addActionListener((ActionEvent ae) -> {
+       /* trueButton.addActionListener((ActionEvent ae) -> {
             quizC5Logic.answerTheQuestion(quizCounter, "VERO");
 
             if (quizCounter + 1 < 10) {
@@ -89,7 +89,7 @@ public class QuizC5Panel extends JPanel {
             } else {
                 System.out.println(quizC5Logic.getResult());
             }
-        });
+        });*/
     }
 
     private void createWrongButton(Dimension pDimension) {
@@ -99,7 +99,7 @@ public class QuizC5Panel extends JPanel {
         wrongButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         wrongButton.setLocation(pDimension.width / 24 * 5, pDimension.height / 12 * 4);
         wrongButton.setLabel("Falso");
-        wrongButton.addActionListener((ActionEvent ae) -> {
+    /*    wrongButton.addActionListener((ActionEvent ae) -> {
             quizC5Logic.answerTheQuestion(quizCounter, "FALSO");
 
             if (quizCounter + 1 < 10) {
@@ -109,7 +109,7 @@ public class QuizC5Panel extends JPanel {
             } else {
                 System.out.println(quizC5Logic.getResult());
             }
-        });
+        }); */
     }
 
     private void createQuestionProgessLabel(Dimension pDimension) {

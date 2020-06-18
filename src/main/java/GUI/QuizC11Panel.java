@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import quizLogic.QuizC11Logic;
+import quizLogic.QuizCSVmanager;
 import quizLogic.QuizEntity;
 
 /**
@@ -23,29 +25,38 @@ public class QuizC11Panel extends JPanel {
     private JButton wrongButton;
     private QuizEntity currentQuiz = null;
     private int quizCounter = 0;
+    private QuizC11Logic quizC11Logic;
+    private ArrayList<QuizEntity> fullC11QuizList;
+    private QuizCSVmanager quizCSVmanager;
 
-    public QuizC11Panel(Dimension pDimension, QuizC11Logic pQuizC11Logic) {
-        super();
-
-        currentQuiz = pQuizC11Logic.getCurrentQuestion();
-
-        setSize(pDimension.width / 3, pDimension.height / 2);
+    public QuizC11Panel() {
         setBackground(Color.decode("#FFFFFF"));
         setVisible(true);
         setLayout(null);
+        
+        quizCSVmanager = new QuizCSVmanager();
+        try {
+            fullC11QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        quizC11Logic = new QuizC11Logic(fullC11QuizList, 10);
+        System.out.println(quizC11Logic.getCurrentQuestion().getQuestion());
+        this.currentQuiz = quizC11Logic.getCurrentQuestion();
+    }
 
+    public void initQuizPanel(Dimension pDimension) {
         createQuestionLabel(pDimension);
-        createTrueButton(pDimension, pQuizC11Logic);
-        createWrongButton(pDimension, pQuizC11Logic);
+        createTrueButton(pDimension);
+        createWrongButton(pDimension);
         createQuestionProgessLabel(pDimension);
 
         this.add(questionLabel);
         this.add(trueButton);
         this.add(wrongButton);
         this.add(questionProgress);
-
     }
-    
 
     private void createQuestionLabel(Dimension pDimension) {
         questionLabel = new JTextArea();
@@ -60,48 +71,42 @@ public class QuizC11Panel extends JPanel {
         questionLabel.setText(currentQuiz.getQuestion());
     }
 
-    private void createTrueButton(Dimension pDimension, QuizC11Logic pQuizC11Logic) {
+    private void createTrueButton(Dimension pDimension) {
         trueButton = new JButton();
         trueButton.setBackground(Color.decode("#43a047"));
         trueButton.setForeground(Color.decode("#FFFFFF"));
         trueButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         trueButton.setLocation(pDimension.width / 24, pDimension.height / 12 * 4);
         trueButton.setLabel("Vero");
-        trueButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pQuizC11Logic.answerTheQuestion(quizCounter, "VERO");
+        trueButton.addActionListener((ActionEvent ae) -> {
+            quizC11Logic.answerTheQuestion(quizCounter, "VERO");
 
-                if (quizCounter + 1 < 10) {
-                    questionLabel.setText(pQuizC11Logic.getNextQuestion().getQuestion());
-                    quizCounter++;
-                    questionProgress.setText("Domanda n. "+(quizCounter+1));
-                } else {
-                    System.out.println(pQuizC11Logic.getResult());
-                }
+            if (quizCounter + 1 < 10) {
+                questionLabel.setText(quizC11Logic.getNextQuestion().getQuestion());
+                quizCounter++;
+                questionProgress.setText("Domanda n. " + (quizCounter + 1));
+            } else {
+                System.out.println(quizC11Logic.getResult());
             }
         });
     }
 
-    private void createWrongButton(Dimension pDimension, QuizC11Logic pQuizC11Logic) {
+    private void createWrongButton(Dimension pDimension) {
         wrongButton = new JButton();
         wrongButton.setBackground(Color.decode("#bf360c"));
         wrongButton.setForeground(Color.decode("#FFFFFF"));
         wrongButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
         wrongButton.setLocation(pDimension.width / 24 * 5, pDimension.height / 12 * 4);
         wrongButton.setLabel("Falso");
-        wrongButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                pQuizC11Logic.answerTheQuestion(quizCounter, "FALSO");
+        wrongButton.addActionListener((ActionEvent ae) -> {
+            quizC11Logic.answerTheQuestion(quizCounter, "FALSO");
 
-                if (quizCounter + 1 < 10) {
-                    questionLabel.setText(pQuizC11Logic.getNextQuestion().getQuestion());
-                    quizCounter++;
-                    questionProgress.setText("Domanda n. "+(quizCounter+1));
-                } else {
-                    System.out.println(pQuizC11Logic.getResult());
-                }
+            if (quizCounter + 1 < 10) {
+                questionLabel.setText(quizC11Logic.getNextQuestion().getQuestion());
+                quizCounter++;
+                questionProgress.setText("Domanda n. " + (quizCounter + 1));
+            } else {
+                System.out.println(quizC11Logic.getResult());
             }
         });
     }
@@ -111,10 +116,10 @@ public class QuizC11Panel extends JPanel {
         questionProgress.setBackground(Color.decode("#FFFFFF"));
         questionProgress.setForeground(Color.decode("#000000"));
         questionProgress.setSize((int) (pDimension.width / 24 * 2.5), pDimension.height / 12);
-        questionProgress.setLocation(pDimension.width / 24 * 3,20);
-        questionProgress.setText("Domanda n. "+(quizCounter+1));
+        questionProgress.setLocation(pDimension.width / 24 * 3, 20);
+        questionProgress.setText("Domanda n. " + (quizCounter + 1));
         questionProgress.setFont(new Font("Arial", Font.BOLD, 14));
-        
+
     }
 
 }

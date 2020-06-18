@@ -82,9 +82,14 @@ public class ApplicationFrame extends JFrame {
             } else {
                 quizC11panel.trueButton.setEnabled(false);
                 quizC11panel.wrongButton.setEnabled(false);
-                swapPanel(quizC11panel, piePanel);
                 resultEntity = quizC11panel.quizC11Logic.getResult();
+                piePanel.setCorrectAnswer(resultEntity.getCorrect());
+                piePanel.setWrongAnswer(resultEntity.getWrong());
+                piePanel.setNotAnsweredQuestion(resultEntity.getNotAnswered());
+                piePanel.setScore(resultEntity.getScore());
+                piePanel.drawChart();
                 System.out.println(resultEntity.toString());
+                swapPanel(quizC11panel, piePanel);
             }
         });
 
@@ -98,9 +103,14 @@ public class ApplicationFrame extends JFrame {
             } else {
                 quizC11panel.trueButton.setEnabled(false);
                 quizC11panel.wrongButton.setEnabled(false);
-                swapPanel(quizC11panel, piePanel);
                 resultEntity = quizC11panel.quizC11Logic.getResult();
+                piePanel.setCorrectAnswer(resultEntity.getCorrect());
+                piePanel.setWrongAnswer(resultEntity.getWrong());
+                piePanel.setNotAnsweredQuestion(resultEntity.getNotAnswered());
+                piePanel.setScore(resultEntity.getScore());
+                piePanel.drawChart();
                 System.out.println(resultEntity.toString());
+                swapPanel(quizC11panel, piePanel);
             }
         });
 

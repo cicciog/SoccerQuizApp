@@ -1,1 +1,12 @@
-.netbeans_automatic_build
+GUI/QuizC5Panel.class
+quizLogic/QuizCSVmanager.class
+quizLogic/ResultEntity.class
+quizLogic/QuizEntity.class
+com/mycompany/mavenproject1/SoccerQuizApp.class
+GUI/StartPanel.class
+quizLogic/QuizC11Logic.class
+GUI/PiePanel.class
+quizLogic/QuizC5Logic.class
+GUI/QuizC11Panel.class
+quizLogic/AbstractQuizLogic.class
+GUI/ApplicationFrame.class

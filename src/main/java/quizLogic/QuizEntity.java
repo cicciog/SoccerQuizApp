@@ -5,10 +5,11 @@ package quizLogic;
  * @author cicciog
  */
 public class QuizEntity {
+
     private String rule;
     private String question;
     private String answer;
-    private String userAnswer; 
+    private String userAnswer;
 
     public QuizEntity() {
     }
@@ -50,8 +51,4 @@ public class QuizEntity {
         return "QuizC11Entity{" + "rule=" + rule + ", question=" + question + ", answer=" + answer + ", userAnswer=" + userAnswer + '}';
     }
 
-    
-    
-    
-    
 }

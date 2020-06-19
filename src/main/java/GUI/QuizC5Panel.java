@@ -105,6 +105,10 @@ public class QuizC5Panel extends JPanel {
     public void setNumberOfQuiz(int pNumberOfQuestion) {
         this.numberOfQuestion = pNumberOfQuestion;
     }
+    
+    public int getNumberOfQuiz(){
+        return this.numberOfQuestion;
+    }
 
     public void cleanQuiz() {
         this.currentQuiz = null;

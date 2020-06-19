@@ -50,7 +50,7 @@ public class ApplicationFrame extends JFrame {
         initPanel(quizC11panel, false);
 
         quizC5panel = new QuizC5Panel();
-        quizC5panel.setNumberOfQuiz(10);
+        quizC5panel.setNumberOfQuiz(startPanel.numberOfQuestion.getValue());
         initPanel(quizC5panel, false);
 
         startPanel.startQuizBtn.addActionListener((ActionEvent e) -> {
@@ -64,6 +64,7 @@ public class ApplicationFrame extends JFrame {
                 swapPanel(startPanel, quizC11panel);
             } else {
                 //show quiz c5 panel and start quiz
+                quizC5panel.setNumberOfQuiz(startPanel.numberOfQuestion.getValue());
                 quizC5panel.initQuizPanel(screenSize);
                 swapPanel(startPanel, quizC5panel);
             }
@@ -128,7 +129,7 @@ public class ApplicationFrame extends JFrame {
         quizC5panel.trueButton.addActionListener((ActionEvent e) -> {
             quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "VERO");
 
-            if (quizC5panel.quizCounter + 1 < 10) {
+            if (quizC5panel.quizCounter + 1 < quizC5panel.getNumberOfQuiz()) {
                 quizC5panel.questionLabel.setText(quizC5panel.quizC5Logic.getNextQuestion().getQuestion());
                 quizC5panel.quizCounter++;
                 quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));
@@ -151,7 +152,7 @@ public class ApplicationFrame extends JFrame {
         quizC5panel.wrongButton.addActionListener((ActionEvent e) -> {
             quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "FALSO");
 
-            if (quizC5panel.quizCounter + 1 < 10) {
+            if (quizC5panel.quizCounter + 1 < quizC5panel.getNumberOfQuiz()) {
                 quizC5panel.questionLabel.setText(quizC5panel.quizC5Logic.getNextQuestion().getQuestion());
                 quizC5panel.quizCounter++;
                 quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));

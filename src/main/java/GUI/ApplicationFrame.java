@@ -13,7 +13,7 @@ import quizLogic.ResultEntity;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class ApplicationFrame extends JFrame {
 

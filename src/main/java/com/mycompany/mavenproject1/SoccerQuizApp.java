@@ -5,7 +5,7 @@ import GUI.ApplicationFrame;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class SoccerQuizApp {
 
@@ -16,6 +16,9 @@ public class SoccerQuizApp {
         
             ApplicationFrame applicationFrame = new ApplicationFrame("Associazione Italiana Arbitri [Quiz]");
             applicationFrame.setVisible(true);
+            
+            System.out.println(System.getProperty("user.dir"));
+            
         
         
     }

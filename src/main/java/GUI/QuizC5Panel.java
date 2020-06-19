@@ -13,7 +13,7 @@ import quizLogic.QuizEntity;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class QuizC5Panel extends JPanel {
 

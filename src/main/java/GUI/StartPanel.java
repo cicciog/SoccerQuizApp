@@ -16,7 +16,7 @@ import javax.swing.event.ChangeEvent;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class StartPanel extends JPanel {
 

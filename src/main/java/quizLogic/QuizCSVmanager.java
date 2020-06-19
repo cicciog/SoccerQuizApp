@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class QuizCSVmanager {
     

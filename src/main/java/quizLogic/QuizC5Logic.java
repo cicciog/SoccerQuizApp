@@ -6,7 +6,7 @@ import java.util.Collection;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class QuizC5Logic implements AbstractQuizLogic{
 
@@ -38,7 +38,7 @@ public class QuizC5Logic implements AbstractQuizLogic{
         
         //check if the quiz list is empty
         if(this.fullC5QuizList.isEmpty()){
-            this.fullC5QuizList = (ArrayList<QuizEntity>) readAllQuizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c5.csv");
+            this.fullC5QuizList = (ArrayList<QuizEntity>) readAllQuizzes("./storage/quiz_c5.csv");
         }
         
         //calculate slot for question range

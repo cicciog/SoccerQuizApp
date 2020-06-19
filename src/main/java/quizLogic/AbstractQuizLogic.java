@@ -1,10 +1,8 @@
 package quizLogic;
 
-import java.util.ArrayList;
-
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public interface AbstractQuizLogic {
 

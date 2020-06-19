@@ -2,7 +2,7 @@ package quizLogic;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class ResultEntity {
     

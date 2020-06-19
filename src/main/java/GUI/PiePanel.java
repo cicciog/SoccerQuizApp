@@ -14,7 +14,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
- * @author francesco
+ * @author cicciog
  */
 public class PiePanel extends JPanel {
 

@@ -7,7 +7,7 @@ import GUI.ApplicationFrame;
  *
  * @author francesco
  */
-public class Main {
+public class SoccerQuizApp {
 
     /**
      * @param args the command line arguments

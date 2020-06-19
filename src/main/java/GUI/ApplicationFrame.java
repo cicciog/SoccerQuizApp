@@ -46,11 +46,11 @@ public class ApplicationFrame extends JFrame {
         initPanel(startPanel, true);
 
         quizC11panel = new QuizC11Panel();
-        quizC11panel.setNumberOfQuiz(10);
+        quizC11panel.setNumberOfQuiz(startPanel.numberOfQuestion.getValue());
         initPanel(quizC11panel, false);
 
         quizC5panel = new QuizC5Panel();
-        quizC5panel.initQuizPanel(screenSize);
+        quizC5panel.setNumberOfQuiz(10);
         initPanel(quizC5panel, false);
 
         startPanel.startQuizBtn.addActionListener((ActionEvent e) -> {
@@ -58,12 +58,14 @@ public class ApplicationFrame extends JFrame {
                 // display the jdialog when type of quiz didn't selected
                 JOptionPane.showMessageDialog(null, "Attenzione! Non hai scelto il tipo di quiz che desideri svolgere");
             } else if (startPanel.chooseType.getSelectedItem().equals("Calcio a 11")) {
-                
+                //show quiz c5 panel and start quiz
+                quizC11panel.setNumberOfQuiz(startPanel.numberOfQuestion.getValue());
                 quizC11panel.initQuizPanel(screenSize);
                 swapPanel(startPanel, quizC11panel);
             } else {
                 //show quiz c5 panel and start quiz
-                swapPanel(startPanel, quizC5panel);   
+                quizC5panel.initQuizPanel(screenSize);
+                swapPanel(startPanel, quizC5panel);
             }
         });
 
@@ -77,7 +79,7 @@ public class ApplicationFrame extends JFrame {
         quizC11panel.trueButton.addActionListener((ActionEvent e) -> {
             quizC11panel.quizC11Logic.answerTheQuestion(quizC11panel.quizCounter, "VERO");
 
-            if (quizC11panel.quizCounter + 1 < 10) {
+            if (quizC11panel.quizCounter + 1 < quizC11panel.getNumberOfQuiz()) {
                 quizC11panel.questionLabel.setText(quizC11panel.quizC11Logic.getNextQuestion().getQuestion());
                 quizC11panel.quizCounter++;
                 quizC11panel.questionProgress.setText("Domanda n. " + (quizC11panel.quizCounter + 1));
@@ -94,14 +96,14 @@ public class ApplicationFrame extends JFrame {
                 System.out.println(resultEntity.toString());
                 swapPanel(quizC11panel, piePanel);
                 quizC11panel.cleanQuiz();
-                
+
             }
         });
 
         quizC11panel.wrongButton.addActionListener((ActionEvent e) -> {
             quizC11panel.quizC11Logic.answerTheQuestion(quizC11panel.quizCounter, "FALSO");
 
-            if (quizC11panel.quizCounter + 1 < 10) {
+            if (quizC11panel.quizCounter + 1 < quizC11panel.getNumberOfQuiz()) {
                 quizC11panel.questionLabel.setText(quizC11panel.quizC11Logic.getNextQuestion().getQuestion());
                 quizC11panel.quizCounter++;
                 quizC11panel.questionProgress.setText("Domanda n. " + (quizC11panel.quizCounter + 1));
@@ -110,7 +112,7 @@ public class ApplicationFrame extends JFrame {
                 quizC11panel.cleanQuiz();
                 quizC11panel.invalidate();
                 quizC11panel.removeAll();
-                
+
                 piePanel.setCorrectAnswer(resultEntity.getCorrect());
                 piePanel.setWrongAnswer(resultEntity.getWrong());
                 piePanel.setNotAnsweredQuestion(resultEntity.getNotAnswered());
@@ -119,7 +121,7 @@ public class ApplicationFrame extends JFrame {
                 System.out.println(resultEntity.toString());
                 swapPanel(quizC11panel, piePanel);
                 quizC11panel.cleanQuiz();
-                
+
             }
         });
 
@@ -132,18 +134,22 @@ public class ApplicationFrame extends JFrame {
                 quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));
             } else {
                 resultEntity = quizC5panel.quizC5Logic.getResult();
+                quizC5panel.cleanQuiz();
+                quizC5panel.invalidate();
+                quizC5panel.removeAll();
                 piePanel.setCorrectAnswer(resultEntity.getCorrect());
                 piePanel.setWrongAnswer(resultEntity.getWrong());
                 piePanel.setNotAnsweredQuestion(resultEntity.getNotAnswered());
                 piePanel.setScore(resultEntity.getScore());
                 piePanel.drawChart();
-                System.out.println(resultEntity.toString());
+                //System.out.println(resultEntity.toString());
                 swapPanel(quizC5panel, piePanel);
+                quizC5panel.cleanQuiz();
             }
         });
 
         quizC5panel.wrongButton.addActionListener((ActionEvent e) -> {
-            quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "VERO");
+            quizC5panel.quizC5Logic.answerTheQuestion(quizC5panel.quizCounter, "FALSO");
 
             if (quizC5panel.quizCounter + 1 < 10) {
                 quizC5panel.questionLabel.setText(quizC5panel.quizC5Logic.getNextQuestion().getQuestion());
@@ -151,13 +157,17 @@ public class ApplicationFrame extends JFrame {
                 quizC5panel.questionProgress.setText("Domanda n. " + (quizC5panel.quizCounter + 1));
             } else {
                 resultEntity = quizC5panel.quizC5Logic.getResult();
+                quizC5panel.cleanQuiz();
+                quizC5panel.invalidate();
+                quizC5panel.removeAll();
                 piePanel.setCorrectAnswer(resultEntity.getCorrect());
                 piePanel.setWrongAnswer(resultEntity.getWrong());
                 piePanel.setNotAnsweredQuestion(resultEntity.getNotAnswered());
                 piePanel.setScore(resultEntity.getScore());
                 piePanel.drawChart();
-                System.out.println(resultEntity.toString());
+                //System.out.println(resultEntity.toString());
                 swapPanel(quizC5panel, piePanel);
+                quizC5panel.cleanQuiz();
             }
         });
 

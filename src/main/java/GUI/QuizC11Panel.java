@@ -74,7 +74,7 @@ public class QuizC11Panel extends JPanel {
         questionLabel.setWrapStyleWord(true);
         questionLabel.setBackground(Color.decode("#5c6bc0"));
         questionLabel.setForeground(Color.decode("#FFFFFF"));
-        questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        questionLabel.setFont(new Font("Arial", Font.BOLD, 12));
         questionLabel.setText(this.currentQuiz.getQuestion());
     }
 
@@ -107,6 +107,10 @@ public class QuizC11Panel extends JPanel {
 
     public void setNumberOfQuiz(int pNumberOfQuestion) {
         this.numberOfQuestion = pNumberOfQuestion;
+    }
+    
+    public int getNumberOfQuiz(){
+        return this.numberOfQuestion;
     }
 
     public void cleanQuiz() {

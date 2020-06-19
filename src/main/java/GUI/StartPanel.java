@@ -24,7 +24,7 @@ public class StartPanel extends JPanel {
     private JLabel logoAiaLabel;
     public JButton startQuizBtn;
     public JComboBox chooseType;
-    private JSlider numberOfQuestion;
+    public JSlider numberOfQuestion;
     private JLabel statusLabel;
     private JLabel header;
     private JLabel rules;

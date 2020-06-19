@@ -1,68 +1,84 @@
 package quizLogic;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
  * @author francesco
  */
-public class QuizC5Logic implements AbstractQuizLogic {
+public class QuizC5Logic implements AbstractQuizLogic{
 
-    private ArrayList<QuizEntity> QuizList;
+    private ArrayList<QuizEntity> quizList;
     private int numberOfQuestion;
     private int currentQuestion = 0;
+    private ArrayList<QuizEntity> fullC5QuizList;
+    private QuizCSVmanager quizCSVmanager;
     
     
-    public QuizC5Logic(ArrayList<QuizEntity> pFullC5QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
+    public QuizC5Logic(int pNumberOfQuestion){
+        this.numberOfQuestion = pNumberOfQuestion;
+        this.quizList = new ArrayList<>();
+                
+    }
+    
+    public Collection<QuizEntity> readAllQuizzes(String pSource) throws IOException{
+        this.quizCSVmanager = new QuizCSVmanager();
+        this.fullC5QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC5Quizzes(pSource);
+        return fullC5QuizList;
+    }
+    
+    public Collection<QuizEntity> generateQuiz() throws IOException{
+        
         //check if the quiz list is null
-        if (pFullC5QuizList == null) {
-            throw new NullPointerException("Lista di quiz vuota");
+        if(this.fullC5QuizList == null){
+            this.fullC5QuizList = new ArrayList<>();
         }
         
         //check if the quiz list is empty
-        if (pFullC5QuizList.isEmpty()) {
-            throw new IndexOutOfBoundsException("Lista dei quiz vuota");
+        if(this.fullC5QuizList.isEmpty()){
+            this.fullC5QuizList = (ArrayList<QuizEntity>) readAllQuizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c5.csv");
         }
-
-        this.numberOfQuestion = pNumberOfQuestion;
-        QuizList = new ArrayList<>();
         
         //calculate slot for question range
-        int slot = (pFullC5QuizList.size() / this.numberOfQuestion);
+        int slot = (this.fullC5QuizList.size() / this.numberOfQuestion);
         
         //generate quiz
-        for (int i = 0; i < numberOfQuestion; i++) {
+        for (int i = 0; i < this.numberOfQuestion; i++) {
             int question = (int) (Math.random() * ((slot * (i+1)) - (slot * i) + 1)) + (slot * i);
-            QuizList.add(pFullC5QuizList.get(question));
+            this.quizList.add(fullC5QuizList.get(question));
+            System.out.println(fullC5QuizList.get(question));
         }
         
+        return this.quizList;
     }
 
     @Override
     public QuizEntity getCurrentQuestion() {
         //show current question of the quiz session
-        return QuizList.get(currentQuestion);
+        return quizList.get(currentQuestion);
     }
 
     @Override
-    public QuizEntity getPreviousQuestion() {
+    public QuizEntity getPreviousQuestion() throws IllegalArgumentException{
         //check if the previous question is in the correct range
-        if (currentQuestion >= 0) {
+        if(currentQuestion >= 0){
             currentQuestion = currentQuestion - 1;
-        } else {
+        }else{
             throw new IllegalArgumentException("Non è possibile recuperare il quiz precedente");
         }
-
-        return QuizList.get(currentQuestion);
+        
+        return quizList.get(currentQuestion);
     }
 
     @Override
     public QuizEntity getNextQuestion() {
         //check if the previous question is in the correct range
-        if (currentQuestion < numberOfQuestion) {
+         if(currentQuestion < numberOfQuestion){
             currentQuestion = currentQuestion + 1;
-            return QuizList.get(currentQuestion);
-        } else {
+            return quizList.get(currentQuestion);
+        }else{
             throw new IllegalArgumentException("Non è possibile recuperare il quiz successivo");
         }
     }
@@ -70,7 +86,7 @@ public class QuizC5Logic implements AbstractQuizLogic {
     @Override
     public void answerTheQuestion(int pQuestion, String pAnswer) {
         //anser a question
-        QuizList.get(pQuestion).setUserAnswer(pAnswer);
+        quizList.get(pQuestion).setUserAnswer(pAnswer);
     }
 
     @Override
@@ -79,29 +95,38 @@ public class QuizC5Logic implements AbstractQuizLogic {
         int correct = 0;
         int notAnswerd = 0;
         ResultEntity result;
-
+        
         //compute the correct, wrong and notAnswered question
-        for (int i = 0; i < numberOfQuestion; i++) {
-            if (QuizList.get(i).getUserAnswer() == null || QuizList.get(i).getUserAnswer().length() == 0) {
+        for(int i = 0; i < numberOfQuestion; i++){
+            System.out.println(quizList.get(i));
+            if(quizList.get(i).getUserAnswer() == null||quizList.get(i).getUserAnswer().length() == 0){
                 notAnswerd = notAnswerd + 1;
-            } else if (QuizList.get(i).getUserAnswer().equals(QuizList.get(i).getAnswer())) {
+            }else if(quizList.get(i).getUserAnswer().equals(quizList.get(i).getAnswer())){
                 correct = correct + 1;
-            } else {
+            }else{
                 wrong = wrong + 1;
             }
         }
-
+        
         //calculate the score of the quiz
-        int score = correct * 3 - wrong * 2 + notAnswerd;
-
+        int score = correct*3-wrong*2+notAnswerd;
+        
         result = new ResultEntity();
         result.setCorrect(correct);
         result.setWrong(wrong);
         result.setNotAnswered(notAnswerd);
         result.setScore(score);
-
+        
         return result;
 
     }
-
+    
+    public void cleanQuizList(){
+        this.quizList.clear();
+    }
+    
+    public int getQuizListSize(){
+        return this.quizList.size();
+    }
+    
 }

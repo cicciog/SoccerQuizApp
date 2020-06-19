@@ -3,9 +3,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -19,42 +20,48 @@ import quizLogic.QuizEntity;
  */
 public class QuizC11Panel extends JPanel {
 
-    JTextArea questionLabel;
-    JTextArea questionProgress;
+    public JTextArea questionLabel;
+    public JTextArea questionProgress;
     public JButton trueButton;
     public JButton wrongButton;
     private QuizEntity currentQuiz = null;
-    int quizCounter = 0;
-    QuizC11Logic quizC11Logic;
-    private ArrayList<QuizEntity> fullC11QuizList;
-    private QuizCSVmanager quizCSVmanager;
+    public int quizCounter;
+    public QuizC11Logic quizC11Logic;
+    private ArrayList<QuizEntity> quizList;
+    private int numberOfQuestion;
 
     public QuizC11Panel() {
         setBackground(Color.decode("#FFFFFF"));
         setLayout(null);
+        trueButton = new JButton();
+        wrongButton = new JButton();
 
-        quizCSVmanager = new QuizCSVmanager();
+    }
+
+    public void initQuizPanel(Dimension pDimension) {
+
         try {
-            fullC11QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC11Quizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
+
+            this.quizC11Logic = new QuizC11Logic(numberOfQuestion);
+            this.quizCounter = 0;
+
+            this.quizList = (ArrayList<QuizEntity>) quizC11Logic.generateQuiz();
+            this.currentQuiz = this.quizList.get(0);
+
+            createQuestionLabel(pDimension);
+            createTrueButton(pDimension);
+            createWrongButton(pDimension);
+            createQuestionProgessLabel(pDimension);
+
+            this.add(questionLabel);
+            this.add(trueButton);
+            this.add(wrongButton);
+            this.add(questionProgress);
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
 
-        quizC11Logic = new QuizC11Logic(fullC11QuizList, 10);
-        System.out.println(quizC11Logic.getCurrentQuestion().getQuestion());
-        this.currentQuiz = quizC11Logic.getCurrentQuestion();
-    }
-
-    public void initQuizPanel(Dimension pDimension) {
-        createQuestionLabel(pDimension);
-        createTrueButton(pDimension);
-        createWrongButton(pDimension);
-        createQuestionProgessLabel(pDimension);
-
-        this.add(questionLabel);
-        this.add(trueButton);
-        this.add(wrongButton);
-        this.add(questionProgress);
     }
 
     private void createQuestionLabel(Dimension pDimension) {
@@ -63,15 +70,15 @@ public class QuizC11Panel extends JPanel {
         questionLabel.setLocation(pDimension.width / 24, pDimension.height / 12);
         questionLabel.setEditable(false);
         questionLabel.setLineWrap(true);
+        questionLabel.setFocusable(false);
         questionLabel.setWrapStyleWord(true);
         questionLabel.setBackground(Color.decode("#5c6bc0"));
         questionLabel.setForeground(Color.decode("#FFFFFF"));
         questionLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        questionLabel.setText(currentQuiz.getQuestion());
+        questionLabel.setText(this.currentQuiz.getQuestion());
     }
 
     private void createTrueButton(Dimension pDimension) {
-        trueButton = new JButton();
         trueButton.setBackground(Color.decode("#43a047"));
         trueButton.setForeground(Color.decode("#FFFFFF"));
         trueButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
@@ -80,7 +87,6 @@ public class QuizC11Panel extends JPanel {
     }
 
     private void createWrongButton(Dimension pDimension) {
-        wrongButton = new JButton();
         wrongButton.setBackground(Color.decode("#bf360c"));
         wrongButton.setForeground(Color.decode("#FFFFFF"));
         wrongButton.setSize(pDimension.width / 24 * 2, pDimension.height / 12);
@@ -97,6 +103,21 @@ public class QuizC11Panel extends JPanel {
         questionProgress.setText("Domanda n. " + (quizCounter + 1));
         questionProgress.setFont(new Font("Arial", Font.BOLD, 14));
 
+    }
+
+    public void setNumberOfQuiz(int pNumberOfQuestion) {
+        this.numberOfQuestion = pNumberOfQuestion;
+    }
+
+    public void cleanQuiz() {
+        this.currentQuiz = null;
+        this.quizCounter = 0;
+        this.quizList.clear();
+    }
+
+    public void setCurrentQuestion() {
+        this.currentQuiz = this.quizList.get(0);
+        this.questionLabel.setText(this.currentQuiz.getQuestion());
     }
 
 }

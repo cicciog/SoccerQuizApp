@@ -27,8 +27,8 @@ public class PiePanel extends JPanel {
     private JPanel buttonsPanel;
     private JLabel scoreLabel;
     private JLabel answerSummaryLabel;
-    private JButton retryBtn;
-    private JButton closeBtn;
+    public JButton retryBtn = new JButton("riprova");
+    private JButton closeBtn = new JButton("chiudi");
 
 
     public PiePanel() {
@@ -96,9 +96,6 @@ public class PiePanel extends JPanel {
     private JPanel createButtonsPanel(Dimension pDimension) {
         JPanel btnsPanel;
 
-        this.retryBtn = new JButton("riprova");
-        this.closeBtn = new JButton("chiudi");
-
         btnsPanel = new JPanel();
         btnsPanel.setSize(pDimension.width, pDimension.height / 6);
 
@@ -107,9 +104,9 @@ public class PiePanel extends JPanel {
         this.retryBtn.setSize(pDimension.width / 8 * 2 - 5, pDimension.height / 12);
         this.closeBtn.setSize(pDimension.width / 8 * 2 - 5, pDimension.height / 12);
 
-        this.retryBtn.addActionListener((ActionEvent ae) -> {
-            System.out.println("Riprova!");
-        });
+        //this.retryBtn.addActionListener((ActionEvent ae) -> {
+        //    System.out.println("Riprova!");
+        //});
         
          this.closeBtn.addActionListener((ActionEvent ae) -> {
              System.exit(0);

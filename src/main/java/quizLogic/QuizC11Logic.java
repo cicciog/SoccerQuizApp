@@ -1,6 +1,8 @@
 package quizLogic;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -8,39 +10,54 @@ import java.util.ArrayList;
  */
 public class QuizC11Logic implements AbstractQuizLogic{
 
-    private ArrayList<QuizEntity> QuizList;
+    private ArrayList<QuizEntity> quizList;
     private int numberOfQuestion;
     private int currentQuestion = 0;
-
-    public QuizC11Logic(ArrayList<QuizEntity> pFullC11QuizList, int pNumberOfQuestion) throws NullPointerException, IndexOutOfBoundsException {
+    private ArrayList<QuizEntity> fullC11QuizList;
+    private QuizCSVmanager quizCSVmanager;
+    
+    
+    public QuizC11Logic(int pNumberOfQuestion){
+        this.numberOfQuestion = pNumberOfQuestion;
+        this.quizList = new ArrayList<>();
+                
+    }
+    
+    public Collection<QuizEntity> readAllQuizzes(String pSource) throws IOException{
+        this.quizCSVmanager = new QuizCSVmanager();
+        this.fullC11QuizList = (ArrayList<QuizEntity>) quizCSVmanager.readAllC11Quizzes(pSource);
+        return fullC11QuizList;
+    }
+    
+    public Collection<QuizEntity> generateQuiz() throws IOException{
+        
         //check if the quiz list is null
-        if (pFullC11QuizList == null) {
-            throw new NullPointerException("Lista di quiz vuota");
+        if(this.fullC11QuizList == null){
+            this.fullC11QuizList = new ArrayList<>();
         }
         
         //check if the quiz list is empty
-        if (pFullC11QuizList.isEmpty()) {
-            throw new IndexOutOfBoundsException("Lista dei quiz vuota");
+        if(this.fullC11QuizList.isEmpty()){
+            this.fullC11QuizList = (ArrayList<QuizEntity>) readAllQuizzes("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/storage/quiz_c11.csv");
         }
-
-        this.numberOfQuestion = pNumberOfQuestion;
-        QuizList = new ArrayList<>();
         
         //calculate slot for question range
-        int slot = (pFullC11QuizList.size() / this.numberOfQuestion);
+        int slot = (this.fullC11QuizList.size() / this.numberOfQuestion);
         
         //generate quiz
-        for (int i = 0; i < numberOfQuestion; i++) {
+        for (int i = 0; i < this.numberOfQuestion; i++) {
             int question = (int) (Math.random() * ((slot * (i+1)) - (slot * i) + 1)) + (slot * i);
-            QuizList.add(pFullC11QuizList.get(question));
+            this.quizList.add(fullC11QuizList.get(question));
+            System.out.println(fullC11QuizList.get(question));
         }
         
+        return this.quizList;
     }
 
     @Override
     public QuizEntity getCurrentQuestion() {
         //show current question of the quiz session
-        return QuizList.get(currentQuestion);
+        return quizList.get(currentQuestion);
     }
 
     @Override
@@ -52,7 +69,7 @@ public class QuizC11Logic implements AbstractQuizLogic{
             throw new IllegalArgumentException("Non è possibile recuperare il quiz precedente");
         }
         
-        return QuizList.get(currentQuestion);
+        return quizList.get(currentQuestion);
     }
 
     @Override
@@ -60,7 +77,7 @@ public class QuizC11Logic implements AbstractQuizLogic{
         //check if the previous question is in the correct range
          if(currentQuestion < numberOfQuestion){
             currentQuestion = currentQuestion + 1;
-            return QuizList.get(currentQuestion);
+            return quizList.get(currentQuestion);
         }else{
             throw new IllegalArgumentException("Non è possibile recuperare il quiz successivo");
         }
@@ -69,7 +86,7 @@ public class QuizC11Logic implements AbstractQuizLogic{
     @Override
     public void answerTheQuestion(int pQuestion, String pAnswer) {
         //anser a question
-        QuizList.get(pQuestion).setUserAnswer(pAnswer);
+        quizList.get(pQuestion).setUserAnswer(pAnswer);
     }
 
     @Override
@@ -81,9 +98,10 @@ public class QuizC11Logic implements AbstractQuizLogic{
         
         //compute the correct, wrong and notAnswered question
         for(int i = 0; i < numberOfQuestion; i++){
-            if(QuizList.get(i).getUserAnswer() == null||QuizList.get(i).getUserAnswer().length() == 0){
+            System.out.println(quizList.get(i));
+            if(quizList.get(i).getUserAnswer() == null||quizList.get(i).getUserAnswer().length() == 0){
                 notAnswerd = notAnswerd + 1;
-            }else if(QuizList.get(i).getUserAnswer().equals(QuizList.get(i).getAnswer())){
+            }else if(quizList.get(i).getUserAnswer().equals(quizList.get(i).getAnswer())){
                 correct = correct + 1;
             }else{
                 wrong = wrong + 1;
@@ -102,5 +120,13 @@ public class QuizC11Logic implements AbstractQuizLogic{
         return result;
 
     }
-
+    
+    public void cleanQuizList(){
+        this.quizList.clear();
+    }
+    
+    public int getQuizListSize(){
+        return this.quizList.size();
+    }
+    
 }

@@ -1,107 +1,144 @@
 package quizLogic;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /**
  *
  * @author francesco
  */
 public class QuizC11LogicTest {
-    
+
     public QuizC11LogicTest() {
     }
 
-    @org.junit.jupiter.api.BeforeAll
-    public static void setUpClass() throws Exception {
+    /**
+     * Test of readAllQuizzes method, of class QuizC11Logic.
+     */
+    @Test
+    public void testReadAllQuizzes() throws Exception {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        assertNotNull(instance);
+        ArrayList<QuizEntity> quizDataSet;
+        quizDataSet = (ArrayList<QuizEntity>) instance.readAllQuizzes("./storage/quiz_c11.csv");
+        assertTrue(quizDataSet.size() > 0);
     }
 
-    @org.junit.jupiter.api.AfterAll
-    public static void tearDownClass() throws Exception {
+    /**
+     * Test of generateQuiz method, of class QuizC11Logic.
+     */
+    @Test
+    public void testGenerateQuiz() throws Exception {
+        int numberOfQuestion = 10;
+        QuizC11Logic instance = new QuizC11Logic(numberOfQuestion);
+        assertNotNull(instance);
+        ArrayList<QuizEntity> quizSession;
+        quizSession = (ArrayList<QuizEntity>) instance.generateQuiz();
+        assertTrue(quizSession.size() > 0);
+        assertEquals(quizSession.size(), numberOfQuestion);
     }
-
-    @org.junit.jupiter.api.BeforeEach
-    public void setUp() throws Exception {
-    }
-
-    @org.junit.jupiter.api.AfterEach
-    public void tearDown() throws Exception {
-    }
-    
-   
 
     /**
      * Test of getCurrentQuestion method, of class QuizC11Logic.
      */
-    @org.junit.jupiter.api.Test
-    public void testGetCurrentQuestion() {
-        System.out.println("getCurrentQuestion");
-        QuizC11Logic instance = null;
-        QuizEntity expResult = null;
-        QuizEntity result = instance.getCurrentQuestion();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testGetCurrentQuestion() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        ArrayList<QuizEntity> quizSession;
+        quizSession = (ArrayList<QuizEntity>) instance.generateQuiz();
+        QuizEntity currentQuiz = quizSession.get(0);
+        assertEquals(currentQuiz, instance.getCurrentQuestion());
+        instance.getNextQuestion();
+        assertNotEquals(instance.getCurrentQuestion(), currentQuiz);
     }
 
     /**
      * Test of getPreviousQuestion method, of class QuizC11Logic.
      */
-    @org.junit.jupiter.api.Test
-    public void testGetPreviousQuestion() {
-        System.out.println("getPreviousQuestion");
-        QuizC11Logic instance = null;
-        QuizEntity expResult = null;
-        QuizEntity result = instance.getPreviousQuestion();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testGetPreviousQuestion() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        ArrayList<QuizEntity> quizSession;
+        quizSession = (ArrayList<QuizEntity>) instance.generateQuiz();
+        QuizEntity currentQuiz = quizSession.get(0);
+        assertEquals(currentQuiz, instance.getCurrentQuestion());
+        instance.getNextQuestion();
+        assertEquals(currentQuiz, instance.getPreviousQuestion());
     }
 
     /**
      * Test of getNextQuestion method, of class QuizC11Logic.
      */
-    @org.junit.jupiter.api.Test
-    public void testGetNextQuestion() {
-        System.out.println("getNextQuestion");
-        QuizC11Logic instance = null;
-        QuizEntity expResult = null;
-        QuizEntity result = instance.getNextQuestion();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testGetNextQuestion() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        ArrayList<QuizEntity> quizSession;
+        quizSession = (ArrayList<QuizEntity>) instance.generateQuiz();
+        QuizEntity currentQuiz = quizSession.get(0);
+        assertEquals(currentQuiz, instance.getCurrentQuestion());
+        instance.getNextQuestion();
+        assertNotEquals(currentQuiz, instance.getCurrentQuestion());
     }
 
     /**
      * Test of answerTheQuestion method, of class QuizC11Logic.
      */
-    @org.junit.jupiter.api.Test
-    public void testAnswerTheQuestion() {
-        System.out.println("answerTheQuestion");
-        int pQuestion = 0;
-        String pAnswer = "";
-        QuizC11Logic instance = null;
-        instance.answerTheQuestion(pQuestion, pAnswer);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testAnswerTheQuestion() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        instance.generateQuiz();
+        String beforeAnswer = instance.getCurrentQuestion().getUserAnswer();
+        assertEquals(beforeAnswer, null);
+        String userAnswer = "VERO";
+        instance.answerTheQuestion(0, userAnswer);
+        String result = instance.getCurrentQuestion().getUserAnswer();
+        assertEquals(userAnswer, result);
     }
 
     /**
      * Test of getResult method, of class QuizC11Logic.
      */
-    @org.junit.jupiter.api.Test
-    public void testGetResult() {
-        System.out.println("getResult");
-        QuizC11Logic instance = null;
-        ResultEntity expResult = null;
+    @Test
+    public void testGetResult() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        instance.generateQuiz();
+        int expectedScore = 10;
+        int expectedCorrect = 0;
+        int expectedWrong = 0;
+        int expectedNotAnswered = 10;
         ResultEntity result = instance.getResult();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expectedScore, result.getScore());
+        assertEquals(expectedCorrect, result.getCorrect());
+        assertEquals(expectedWrong, result.getWrong());
+        assertEquals(expectedNotAnswered, result.getNotAnswered());
     }
-    
+
+    /**
+     * Test of cleanQuizList method, of class QuizC11Logic.
+     */
+    @Test
+    public void testCleanQuizList() throws IOException {
+        QuizC11Logic instance = new QuizC11Logic(10);
+        instance.generateQuiz();
+        assertTrue(instance.getQuizListSize() > 0);
+        instance.cleanQuizList();
+        assertTrue(instance.getQuizListSize() == 0);
+    }
+
+    /**
+     * Test of getQuizListSize method, of class QuizC11Logic.
+     */
+    @Test
+    public void testGetQuizListSize() throws IOException {
+        int numberOfquestion = 10;
+        QuizC11Logic instance = new QuizC11Logic(numberOfquestion);
+        int expectedSize = 0;
+        assertEquals(expectedSize, instance.getQuizListSize());
+        instance.generateQuiz();
+        int size = instance.getQuizListSize();
+        assertEquals(numberOfquestion, size);
+    }
+
 }

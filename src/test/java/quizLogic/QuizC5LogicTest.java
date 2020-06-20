@@ -72,35 +72,74 @@ public class QuizC5LogicTest {
      * Test of getNextQuestion method, of class QuizC5Logic.
      */
     @Test
-    public void testGetNextQuestion() {
+    public void testGetNextQuestion() throws IOException {
+        QuizC5Logic instance = new QuizC5Logic(10);
+        ArrayList<QuizEntity> quizSession;
+        quizSession = (ArrayList<QuizEntity>) instance.generateQuiz();
+        QuizEntity currentQuiz = quizSession.get(0);
+        assertEquals(currentQuiz,instance.getCurrentQuestion());
+        instance.getNextQuestion();
+        assertNotEquals(currentQuiz,instance.getCurrentQuestion());
     }
 
     /**
      * Test of answerTheQuestion method, of class QuizC5Logic.
      */
     @Test
-    public void testAnswerTheQuestion() {
+    public void testAnswerTheQuestion() throws IOException {
+        QuizC5Logic instance = new QuizC5Logic(10);
+        instance.generateQuiz();
+        String beforeAnswer = instance.getCurrentQuestion().getUserAnswer();
+        assertEquals(beforeAnswer,null);
+        String userAnswer = "VERO";
+        instance.answerTheQuestion(0,userAnswer);
+        String result = instance.getCurrentQuestion().getUserAnswer();
+        assertEquals(userAnswer,result);
     }
 
     /**
      * Test of getResult method, of class QuizC5Logic.
      */
     @Test
-    public void testGetResult() {
+    public void testGetResult() throws IOException {
+        QuizC5Logic instance = new QuizC5Logic(10);
+        instance.generateQuiz();
+        int expectedScore = 10;
+        int expectedCorrect = 0;
+        int expectedWrong = 0;
+        int expectedNotAnswered = 10;
+        ResultEntity result = instance.getResult();
+        assertEquals(expectedScore,result.getScore());
+        assertEquals(expectedCorrect,result.getCorrect());
+        assertEquals(expectedWrong,result.getWrong());
+        assertEquals(expectedNotAnswered,result.getNotAnswered());
     }
 
     /**
      * Test of cleanQuizList method, of class QuizC5Logic.
      */
     @Test
-    public void testCleanQuizList() {
+    public void testCleanQuizList() throws IOException {
+        QuizC5Logic instance = new QuizC5Logic(10);
+        instance.generateQuiz();
+        assertTrue(instance.getQuizListSize() > 0);
+        instance.cleanQuizList();
+        assertTrue(instance.getQuizListSize() == 0); 
     }
 
     /**
      * Test of getQuizListSize method, of class QuizC5Logic.
      */
     @Test
-    public void testGetQuizListSize() {
+    public void testGetQuizListSize() throws IOException {
+        int numberOfquestion = 10;
+        QuizC5Logic instance = new QuizC5Logic(numberOfquestion);
+        int expectedSize = 0;
+        assertEquals(expectedSize,instance.getQuizListSize());
+        instance.generateQuiz();
+        int size = instance.getQuizListSize();
+        assertEquals(numberOfquestion,size);
+        
     }
 
 }

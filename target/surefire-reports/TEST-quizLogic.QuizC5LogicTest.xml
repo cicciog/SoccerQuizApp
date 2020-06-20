@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="9" failures="0" name="quizLogic.QuizC5LogicTest" time="0.083" errors="1" skipped="0">
+<testsuite tests="9" failures="0" name="quizLogic.QuizC5LogicTest" time="0.263" errors="1" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -64,14 +64,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGenerateQuiz" time="0.049"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testCleanQuizList" time="0"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetPreviousQuestion" time="0.014">
-    <error message="-1" type="java.lang.ArrayIndexOutOfBoundsException">java.lang.ArrayIndexOutOfBoundsException: -1
-	at java.util.ArrayList.elementData(ArrayList.java:422)
-	at java.util.ArrayList.get(ArrayList.java:435)
-	at quizLogic.QuizC5Logic.getPreviousQuestion(QuizC5Logic.java:72)
-	at quizLogic.QuizC5LogicTest.testGetPreviousQuestion(QuizC5LogicTest.java:69)
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGenerateQuiz" time="0.054"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testCleanQuizList" time="0.043">
+    <error message="Index: 190, Size: 190" type="java.lang.IndexOutOfBoundsException">java.lang.IndexOutOfBoundsException: Index: 190, Size: 190
+	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
+	at java.util.ArrayList.get(ArrayList.java:433)
+	at quizLogic.QuizC5Logic.generateQuiz(QuizC5Logic.java:50)
+	at quizLogic.QuizC5LogicTest.testCleanQuizList(QuizC5LogicTest.java:124)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -105,22 +104,22 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
-    <system-out>QuizC11Entity{rule=ASS, question=Il Comitato Nazionale è composto dal Presidente dell’AIA, dal Vice Presidente, dai tre Componenti effettivi della lista collegata e dai tre Componenti effettivi eletti singolarmente per ciascuna macroregione, answer=VERO, userAnswer=null}
-QuizC11Entity{rule=ASS, question=Agli Arbitri è fatto divieto di dirigere gare che non rientrano nell’attività calcistica organizzata o autorizzata dalla FIGC, answer=VERO, userAnswer=null}
-QuizC11Entity{rule=ASS, question=Il numero dei Consiglieri dei CDS varia a seconda della forza sezionale ed è stabilito dal Comitato Nazionale all&apos;inizio di ogni stagione sportiva, answer=FALSO, userAnswer=null}
-QuizC11Entity{rule=NFOT, question=Il Comitato Nazionale, d’intesa con il Settore Tecnico, può predisporre modalità attuative per la trasmissione integrale delle relazioni degli Osservatori arbitrali ad AE e AA, answer=VERO, userAnswer=null}
-QuizC11Entity{rule=NFOT, question=Possono  richiedere  di  svolgere  l’attività  di  OA  alla  CAI  coloro  i  quali  abbiano  svolto  qualificata  attività  per  almeno  tre  stagioni  sportive  quali Componenti dell’OTR, answer=FALSO, userAnswer=null}
-QuizC11Entity{rule=R3, question=Un calciatore di riserva entra nel rettangolo di gioco in sovrannumero e tenta di impedire la segnatura di una rete, non riuscendoci. Dovrà essere espulso e il gioco ripreso con un calcio di punizione indiretto nel punto in cui si trovava il pallone quando è stato toccato da detto calciatore., answer=FALSO, userAnswer=null}
-QuizC11Entity{rule=R5, question=Dopo il quinto fallo il vantaggio non può essere mai concesso, answer=FALSO, userAnswer=null}
-QuizC11Entity{rule=R5, question=Il portiere, su rimessa laterale, riceve il pallone da un compagno nella metà campo avversaria, lo gioca e lo porta nella propria metà del rettangolo di gioco. L&apos;Arbitro dovrà considerare l&apos;azione regolare e iniziare in maniera visiva il conteggio dei quattro secondi., answer=VERO, userAnswer=null}
-QuizC11Entity{rule=R12, question=Il difensore trattiene ai limiti della sua area di rigore un avversario che ha davanti a sé solo il portiere a guardia della porta, interrompendone l’azione di attacco: l’arbitro dovrà espellerlo per condotta gravemente sleale., answer=FALSO, userAnswer=null}
-QuizC11Entity{rule=R15, question=La rimessa laterale deve essere eseguita con i piedi., answer=VERO, userAnswer=null}
+    <system-out>QuizC11Entity{rule=ASS, question=Gli  Arbitri  hanno  diritto  a  ricevere  consulenza  gratuita  dalla  Commissione  Esperti  Legali  per  questioni  civili  e  penali  attinenti  a  fatti  accaduti nell&apos;ambito della loro prestazione sportiva, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=ASS, question=Durante il periodo di sospensione disciplinare l’Associato non è tenuto al versamento delle quote associative, answer=FALSO, userAnswer=null}
+QuizC11Entity{rule=ASS, question=Il Collegio dei Revisori sezionali è un organo di controllo dell’attività amministrativa e contabile, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=NFOT, question=I rilievi di carattere tecnico ad Associati della CAN A e della CAN B devono essere comunicati per iscritto agli interessati, ovvero tramite il portale informatico AIA, con copia inviata al Presidente dell’AIA, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=NFOT, question=Gli OTN provvedono, altresì, all’impiego degli Arbitri con le funzioni di Quarto ufficiale di gara, con le modalità disposte dal Comitato Nazionale, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=R3, question=Nel corso della gara un calciatore traccia alcune linee non autorizzate nel rettangolo di gioco. Gli Arbitri dovranno, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=R3, question=Un calciatore titolare al momento di concessione del time-out, durante l&apos;effettuazione dello stesso, viene espulso. La sua squadra potrà riprende il gioco con lo stesso numero di titolari presenti in campo al momento dell&apos;inizio del time-out., answer=FALSO, userAnswer=null}
+QuizC11Entity{rule=R7, question=Alla  fine  del  primo  tempo  i  due  capitani  si  accordano  per  rinunciare  all’intervallo  anche  se  uno  dei  calciatori insiste sul suo diritto al periodo di riposo. L’Arbitro non acconsentirà alla richiesta, answer=VERO, userAnswer=null}
+QuizC11Entity{rule=R13, question=Su  tiro  libero,  se  il  calciatore  non  esegue  la  battuta  entro  4  secondi  dal  fischio  autorizzativo,  l’arbitro  dovrà attribuire un calcio di punizione indiretto alla squadra avversaria., answer=VERO, userAnswer=null}
 </system-out>
   </testcase>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetCurrentQuestion" time="0.011"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetNextQuestion" time="0"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetQuizListSize" time="0"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testAnswerTheQuestion" time="0"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetResult" time="0.001"/>
-  <testcase classname="quizLogic.QuizC5LogicTest" name="testReadAllQuizzes" time="0.008"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetPreviousQuestion" time="0.03"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetCurrentQuestion" time="0.033"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetNextQuestion" time="0.033"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetQuizListSize" time="0.018"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testAnswerTheQuestion" time="0.02"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testGetResult" time="0.026"/>
+  <testcase classname="quizLogic.QuizC5LogicTest" name="testReadAllQuizzes" time="0.006"/>
 </testsuite>

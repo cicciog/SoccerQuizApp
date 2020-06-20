@@ -6,7 +6,7 @@ Simple desktop application for validate your theoretical skills on Football ans 
 
 ### 1) Start screen
 
-<image src="https://github.com/cicciog/SoccerQuizApp/blob/master/images/startScreen.png" />
+![](imges/startScreen.png)
 
 ### 2) Quiz screen
 

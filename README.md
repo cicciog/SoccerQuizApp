@@ -6,13 +6,12 @@ Simple desktop application for validate your theoretical skills on Football ans 
 
 ### 1) Start screen
 
-![alt text](http://github.com/cicciog/SoccerQuizApp/blob/master/images/startScreen.png)
+<img src="https://github.com/cicciog/SoccerQuizApp/blob/master/images/startScreen.png" alt="start screen" width="400" height="300"> 
 
 ### 2) Quiz screen
 
-![alt text](http://github.com/cicciog/SoccerQuizApp/blob/master/images/quizScreen.png)
+<img src="https://github.com/cicciog/SoccerQuizApp/blob/master/images/quizScreen.png" alt="quiz screen" width="400" height="300"> 
 
 ### 3) Result screen
 
-![alt text](http://github.com/cicciog/SoccerQuizApp/blob/master/images/resultScreen.png)
-
+<img src="https://github.com/cicciog/SoccerQuizApp/blob/master/images/resultScreen.png" alt="result screen" width="400" height="300"> 

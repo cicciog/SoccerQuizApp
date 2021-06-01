@@ -83,13 +83,13 @@ public class StartPanel extends JPanel {
         panel4.setBackground(Color.decode("#FFFFFF"));
 
         //create aia logo
-        logoAia = ImageIO.read(new File("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/assets/logo_aia.png"));
+        logoAia = ImageIO.read(new File("./assets/logo.png"));
 
         logoAiaLabel = new JLabel(new ImageIcon(logoAia));
         panel1.add(logoAiaLabel);
 
         //create header section
-        header = new JLabel("Benvenuto nell’applicazione dei quiz per arbitri AIA Figc");
+        header = new JLabel("Try the quiz now!");
         panel2.add(header);
 
         //create section that show the rules that determine score

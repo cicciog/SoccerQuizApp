@@ -37,7 +37,7 @@ public class SoccerQuizApp {
      */
     public static void main(String[] args) {
         
-            ApplicationFrame applicationFrame = new ApplicationFrame("Soccer quiz [Quiz]");
+            ApplicationFrame applicationFrame = new ApplicationFrame("Associazione Italiana Arbitri [Quiz]");
             applicationFrame.setVisible(true);          
         
     }

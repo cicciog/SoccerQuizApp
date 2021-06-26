@@ -62,7 +62,7 @@ public class QuizC11Logic implements AbstractQuizLogic{
         
         //check if the quiz list is empty
         if(this.fullC11QuizList.isEmpty()){
-            this.fullC11QuizList = (ArrayList<QuizEntity>) readAllQuizzes("./src/main/java/resources/quiz_c11.csv");
+            this.fullC11QuizList = (ArrayList<QuizEntity>) readAllQuizzes("./storage/quiz_c11.csv");
         }   
         
         //calculate slot for question range

@@ -83,7 +83,7 @@ public class StartPanel extends JPanel {
         panel4.setBackground(Color.decode("#FFFFFF"));
 
         //create aia logo
-        logoAia = ImageIO.read(new File("/home/francesco/NetBeansProjects/mavenproject1/src/main/java/assets/logo_aia.png"));
+        logoAia = ImageIO.read(new File("src/main/java/resources/logo_aia.png"));
 
         logoAiaLabel = new JLabel(new ImageIcon(logoAia));
         panel1.add(logoAiaLabel);

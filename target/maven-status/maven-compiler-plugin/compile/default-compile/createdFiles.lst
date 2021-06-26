@@ -1,8 +1,8 @@
 GUI/QuizC5Panel.class
+executable/SoccerQuizApp.class
 quizLogic/QuizCSVmanager.class
 quizLogic/ResultEntity.class
 quizLogic/QuizEntity.class
-com/mycompany/mavenproject1/SoccerQuizApp.class
 GUI/StartPanel.class
 quizLogic/QuizC11Logic.class
 GUI/PiePanel.class

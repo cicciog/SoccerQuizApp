@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
-*/
+ */
 package GUI;
 
 import java.awt.Color;
@@ -53,15 +53,14 @@ public class PiePanel extends JPanel {
     public JButton retryBtn = new JButton("riprova");
     private JButton closeBtn = new JButton("chiudi");
 
-
     public PiePanel() {
         //set background color white
         this.setBackground(Color.WHITE);
     }
-    
-    public void drawChart(){
-         //create chart panel
-        this.chartPanel = createPieDiagram(this.getSize(),correctAnswer,wrongAnswer,notAnsweredQuestion);
+
+    public void drawChart() {
+        //create chart panel
+        this.chartPanel = createPieDiagram(this.getSize(), correctAnswer, wrongAnswer, notAnsweredQuestion);
 
         //create result panel
         this.resultPanel = createResultPanel(this.getSize(), score, correctAnswer, wrongAnswer, notAnsweredQuestion);
@@ -73,8 +72,6 @@ public class PiePanel extends JPanel {
         add(resultPanel);
         add(buttonsPanel);
     }
-    
-    
 
     private JPanel createPieDiagram(Dimension pDimension, int pCorrect, int pWrong, int pNotAnswered) {
 
@@ -130,9 +127,8 @@ public class PiePanel extends JPanel {
         //this.retryBtn.addActionListener((ActionEvent ae) -> {
         //    System.out.println("Riprova!");
         //});
-        
-         this.closeBtn.addActionListener((ActionEvent ae) -> {
-             System.exit(0);
+        this.closeBtn.addActionListener((ActionEvent ae) -> {
+            System.exit(0);
         });
 
         btnsPanel.add(this.retryBtn);
@@ -157,5 +153,4 @@ public class PiePanel extends JPanel {
         this.notAnsweredQuestion = pNotAnsweredQuestion;
     }
 
-    
 }

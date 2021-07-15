@@ -20,8 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. 
-*/
-
+ */
 package GUI;
 
 import java.awt.Dimension;
@@ -43,7 +42,7 @@ public class ApplicationFrame extends JFrame {
 
     //set screen size 
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    private final Dimension FRAME_SIZE = new Dimension(screenSize.width / 3, screenSize.height / 2);
+    private final Dimension FRAME_SIZE = new Dimension((screenSize.width / 3) + 20, (screenSize.height / 2) + 50);
 
     //panel declaration
     private StartPanel startPanel;
